@@ -7,7 +7,7 @@ public class Main {
         int a = sc.nextInt();
         int b = sc.nextInt();
         int c = sc.nextInt();
-        
-        System.out.println((b-a)/c+1);
+
+        System.out.println(b / c - (a - 1) / c);
     }
 }
