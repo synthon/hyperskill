@@ -19,20 +19,21 @@ class Main {
                           generate.nextInt(26) + 97, // lower case letters
                           generate.nextInt(10) + 48, // numbers
                           generate.nextInt(94) + 33}; // mix
-            int curr = woof[generate.nextInt(9999) % 4];
+            int pick = generate.nextInt(9999) % 4;
+            int curr = woof[pick];
 
             if (curr != prev) {
-                if (upper > 0 && curr > 64 && curr < 91) {
+                if (upper > 0 && pick == 0) {
                     password += (char) curr;
                     upper -= 1;
                     prev = curr;
 
-                } else if (lower > 0 && curr > 96 && curr < 123) {
+                } else if (lower > 0 && pick == 1) {
                     password += (char) curr;
                     lower -= 1;
                     prev = curr;
 
-                } else if (digits > 0 && curr > 47 && curr < 58) {
+                } else if (digits > 0 && pick == 2) {
                     password += (char) curr;
                     digits -= 1;
                     prev = curr;
