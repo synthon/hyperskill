@@ -1,80 +1,79 @@
 import java.util.Scanner;
 
-class ClockFactory {
+class Time {
 
-    private boolean produceToyClock;
+    int hour;
+    int minute;
+    int second;
 
-    public ClockFactory(boolean produceToyClock) {
-        this.produceToyClock = produceToyClock;
+    public static Time noon() {
+        return Time.of(12, 0, 0);
     }
 
-    /**
-     * It produces a clock according to a specified type: SAND, DIGITAL or MECH.
-     * If some other type is passed, the method produces ToyClock.
-     */
-    public Clock produce(String type) {
-        switch (type) {
-            case "SAND":
-                return new SandClock();
-            case "DIGITAL":
-                return new DigitalClock();
-            case "MECH":
-                return new MechanicalClock();
-            default:
-                return produceToyClock ? new ToyClock() : null;
+    public static Time midnight() {
+        return new Time();
+    }
+
+    public static Time ofSeconds(long seconds) {
+        Time time = new Time();
+
+        time.hour = (int) (seconds % 86400 / 3600);
+        time.minute = (int) (seconds % 3600 / 60);
+        time.second = (int) (seconds % 60);
+
+        return time;
+    }
+
+    public static Time of(int hour, int minute, int second) {
+        if (hour < 0 || hour > 23 ||
+            minute < 0 || minute > 59 ||
+            second < 0 || second > 59) {
+            return null;
         }
+
+        Time time = new Time();
+
+        time.hour = hour;
+        time.minute = minute;
+        time.second = second;
+
+        return time;
     }
 }
 
 /* Do not change code below */
-interface Clock {
-
-    void tick();
-}
-
-class SandClock implements Clock {
-
-    @Override
-    public void tick() {
-        System.out.println("...sand noise...");
-    }
-}
-
-class DigitalClock implements Clock {
-
-    @Override
-    public void tick() {
-        System.out.println("...pim...");
-    }
-}
-
-class MechanicalClock implements Clock {
-
-    @Override
-    public void tick() {
-        System.out.println("...clang mechanism...");
-    }
-}
-
-class ToyClock implements Clock {
-
-    @Override
-    public void tick() {
-        System.out.println("...tick...");
-    }
-}
-
 public class Main {
+
     public static void main(String args[]) {
         final Scanner scanner = new Scanner(System.in);
         final String type = scanner.next();
-        final boolean produceToy = scanner.nextBoolean();
-        final ClockFactory factory = new ClockFactory(produceToy);
-        final Clock clock = factory.produce(type);
-        if (clock != null) {
-            clock.tick();
+        Time time = null;
+
+        switch (type) {
+            case "noon":
+                time = Time.noon();
+                break;
+            case "midnight":
+                time = Time.midnight();
+                break;
+            case "hms":
+                int h = scanner.nextInt();
+                int m = scanner.nextInt();
+                int s = scanner.nextInt();
+                time = Time.of(h, m, s);
+                break;
+            case "seconds":
+                time = Time.ofSeconds(scanner.nextInt());
+                break;
+            default:
+                time = null;
+                break;
+        }
+
+        if (time != null) {
+            System.out.println(String.format("%s %s %s", time.hour, time.minute, time.second));
         } else {
-            System.out.println(clock);
+            System.out.println(time);
         }
     }
 }
