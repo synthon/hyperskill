@@ -7,12 +7,12 @@ class Main {
         String text = sc.nextLine();
         boolean isFound = false;
 
-        Pattern pattern = Pattern.compile("(?i)password.*?([0-9a-zA-Z]+)");
+        Pattern pattern = Pattern.compile("(?i)password.*?([0-9a-z]+)");
         Matcher matcher = pattern.matcher(text);
 
         while (matcher.find()) {
             isFound = true;
-            System.out.println(matcher.group());
+            System.out.println(matcher.group(1));
         }
 
         if (!isFound) {
