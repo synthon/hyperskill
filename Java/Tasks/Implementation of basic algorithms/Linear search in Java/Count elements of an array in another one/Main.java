@@ -6,7 +6,7 @@ public class Main {
 
     public static int[] countOccurrences(int[] first, int[] second) {
         int[] out = new int[first.length];
-        Map<Integer, Integer> count = new HashMap<>();
+        HashMap<Integer, Integer> count = new HashMap<>();
 
         for (int num : second) {
             count.put(num, count.getOrDefault(num, 0) + 1);
