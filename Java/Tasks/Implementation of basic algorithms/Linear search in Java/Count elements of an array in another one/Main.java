@@ -5,13 +5,14 @@ public class Main {
 
     public static int[] countOccurrences(int[] first, int[] second) {
         int[] out = new int[first.length];
+        Map<Integer, Integer> count = new HashMap<>();
 
-        for (int i = 0; i < first.length; i++) {
-            for (int j = 0; j < second.length; j++) {
-                if (first[i] == second[j]) {
-                    out[i] += 1;
-                }
-            }
+        for (int num : second) {
+            count.put(num, count.getOrDefault(num, 0) + 1);
+        }
+
+        for (int i = 0; i < out.length; i++) {
+            out[i] = count.getOrDefault(first[i], 0);
         }
 
         return out;
