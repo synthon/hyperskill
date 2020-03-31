@@ -1,4 +1,3 @@
-// The method is OK, no need to change it
 public void writeWords(String[] words) throws IOException {
     LetterPrinter printer = new LetterPrinter();
 
